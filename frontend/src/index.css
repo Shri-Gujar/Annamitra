@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --color-ink: #1c1914;
+  --color-forest: #1f3a2e;
+  --color-leaf: #3d6b4f;
+  --color-cream: #f6efe3;
+  --color-sand: #efe4d2;
+  --color-turmeric: #e2a312;
+  --color-terracotta: #c45c2a;
+  --color-card: #fffaf3;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+button,
+a,
+input {
+  font-family: inherit;
+}
