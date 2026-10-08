@@ -1,56 +1,231 @@
 import { Link } from 'react-router-dom'
 
-const steps = [
-  { title: 'Photograph the plate', body: 'Use the camera or upload a thali photo.' },
-  { title: 'Detect Indian foods', body: 'The app looks for items like dal, roti, and sabzi.' },
-  { title: 'Estimate nutrition', body: 'Totals come from typical portions plus a food database.' },
+const features = [
+  {
+    icon: '📸',
+    title: 'Scan your plate',
+    body: 'Capture or upload a meal in seconds.',
+  },
+  {
+    icon: '✨',
+    title: 'Get food insights',
+    body: 'See estimated calories and key nutrients.',
+  },
+  {
+    icon: '📊',
+    title: 'Track your day',
+    body: 'Keep your meals and nutrition goals together.',
+  },
 ]
 
 export default function HomePage() {
   return (
-    <div className="space-y-8">
-      <header className="space-y-3">
-        <p className="text-sm font-medium uppercase tracking-[0.22em] text-leaf">Annamitra</p>
-        <h1 className="font-display text-4xl leading-tight text-forest">
-          Know what is on the plate.
-        </h1>
-        <p className="text-[15px] leading-relaxed text-ink/75">
-          AI-assisted Indian food nutrition estimates from a photo. Built as a progressive
-          web app for phone and laptop demos.
-        </p>
+    <div className="space-y-7 pb-2">
+      {/* Hero */}
+      <header className="relative overflow-hidden rounded-[2rem] bg-forest p-6 text-cream shadow-sm">
+        <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-turmeric/10" />
+        <div className="absolute -bottom-16 -left-10 h-32 w-32 rounded-full bg-leaf/10" />
+
+        <div className="relative">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-turmeric">
+                Annamitra
+              </p>
+
+              <p className="mt-1 text-xs text-cream/50">
+                Smart food companion
+              </p>
+            </div>
+
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cream/10 text-xl">
+              🥗
+            </div>
+          </div>
+
+          <h1 className="mt-8 max-w-xs font-display text-4xl leading-tight">
+            Know what&apos;s on your plate.
+          </h1>
+
+          <p className="mt-3 max-w-sm text-sm leading-6 text-cream/70">
+            Explore your Indian meals through estimated nutrition,
+            simple insights, and daily tracking.
+          </p>
+
+          <Link
+            to="/scan"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-turmeric px-5 py-3 text-sm font-semibold text-ink shadow-sm transition-transform active:scale-95"
+          >
+            📸 Scan a plate
+          </Link>
+        </div>
       </header>
 
-      <section className="overflow-hidden rounded-3xl bg-forest p-5 text-cream shadow-sm">
-        <p className="text-sm text-cream/70">Today&apos;s milestone</p>
-        <h2 className="mt-1 font-display text-2xl">Camera → plate → estimate</h2>
-        <p className="mt-2 text-sm leading-relaxed text-cream/80">
-          Scan a meal, see detected items, and get calories, protein, carbs, and fiber.
-          Values are estimates, not lab results.
+      {/* Quick stats */}
+      <section className="grid grid-cols-3 gap-2">
+        <QuickStat icon="🔥" label="Calories" />
+        <QuickStat icon="💪" label="Protein" />
+        <QuickStat icon="🌿" label="Fiber" />
+      </section>
+
+      {/* Main feature */}
+      <section className="rounded-[1.8rem] bg-card p-5 shadow-sm">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-leaf">
+              Your nutrition journey
+            </p>
+
+            <h2 className="mt-1 font-display text-2xl text-forest">
+              From plate to insight ✨
+            </h2>
+          </div>
+
+          <div className="text-3xl">🍛</div>
+        </div>
+
+        <p className="mt-3 text-sm leading-6 text-ink/65">
+          Scan a meal and explore its estimated nutrition. Then use your
+          daily dashboard to keep track of what you have logged.
         </p>
+
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <StepBadge number="01" text="Capture" />
+          <StepBadge number="02" text="Analyze" />
+          <StepBadge number="03" text="Explore" />
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="space-y-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-leaf">
+            What you can do
+          </p>
+
+          <h2 className="mt-1 font-display text-xl text-forest">
+            Simple. Visual. Useful.
+          </h2>
+        </div>
+
+        <div className="space-y-3">
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className="flex gap-4 rounded-[1.5rem] bg-card p-4 shadow-sm transition-transform hover:-translate-y-0.5"
+            >
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-sand text-xl">
+                {feature.icon}
+              </div>
+
+              <div>
+                <p className="font-semibold text-forest">
+                  {feature.title}
+                </p>
+
+                <p className="mt-1 text-sm leading-5 text-ink/60">
+                  {feature.body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="rounded-[1.8rem] bg-sand p-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-leaf">
+          How it works
+        </p>
+
+        <div className="mt-4 space-y-4">
+          <TimelineItem
+            number="1"
+            title="Photograph your meal"
+            body="Use your camera or upload a clear plate image."
+          />
+
+          <TimelineItem
+            number="2"
+            title="Explore the estimate"
+            body="View detected foods and estimated nutrition values."
+          />
+
+          <TimelineItem
+            number="3"
+            title="Track your day"
+            body="See your logged meals and nutrition progress."
+          />
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="rounded-[1.8rem] border border-forest/10 bg-card p-5 text-center shadow-sm">
+        <div className="text-3xl">🌱</div>
+
+        <h2 className="mt-2 font-display text-xl text-forest">
+          Ready to explore your plate?
+        </h2>
+
+        <p className="mt-1 text-sm text-ink/60">
+          Start with your next meal.
+        </p>
+
         <Link
           to="/scan"
-          className="mt-5 inline-flex rounded-full bg-turmeric px-5 py-2.5 text-sm font-semibold text-ink"
+          className="mt-4 inline-flex rounded-full bg-forest px-6 py-3 text-sm font-semibold text-cream transition-transform active:scale-95"
         >
-          Scan a plate
+          ✨ Start scanning
         </Link>
       </section>
 
-      <section className="space-y-3">
-        <h2 className="font-display text-xl text-forest">How it works</h2>
-        <ol className="space-y-3">
-          {steps.map((step, index) => (
-            <li key={step.title} className="flex gap-3 rounded-2xl bg-card p-4 shadow-sm">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sand font-semibold text-forest">
-                {index + 1}
-              </span>
-              <div>
-                <p className="font-semibold">{step.title}</p>
-                <p className="text-sm text-ink/70">{step.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {/* Demo note */}
+      <p className="px-4 text-center text-xs leading-5 text-ink/45">
+        Annamitra provides estimated nutrition for demonstration purposes.
+        Values are not a substitute for professional dietary advice.
+      </p>
+    </div>
+  )
+}
+
+function QuickStat({ icon, label }) {
+  return (
+    <div className="rounded-2xl bg-card p-3 text-center shadow-sm">
+      <div className="text-lg">{icon}</div>
+
+      <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-ink/45">
+        {label}
+      </p>
+    </div>
+  )
+}
+
+function StepBadge({ number, text }) {
+  return (
+    <div className="rounded-2xl bg-sand px-2 py-3 text-center">
+      <p className="text-[10px] font-bold text-leaf">{number}</p>
+
+      <p className="mt-1 text-xs font-semibold text-forest">
+        {text}
+      </p>
+    </div>
+  )
+}
+
+function TimelineItem({ number, title, body }) {
+  return (
+    <div className="flex gap-3">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest text-xs font-semibold text-cream">
+        {number}
+      </div>
+
+      <div>
+        <p className="font-semibold text-forest">{title}</p>
+
+        <p className="mt-0.5 text-sm leading-5 text-ink/60">
+          {body}
+        </p>
+      </div>
     </div>
   )
 }

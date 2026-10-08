@@ -16,6 +16,7 @@ export const indianFoods = {
     fiber: 6,
     vitamins: ['B1', 'Iron'],
   },
+
   dal: {
     name: 'Dal tadka',
     portion: '1 katori',
@@ -26,6 +27,7 @@ export const indianFoods = {
     fiber: 8,
     vitamins: ['Folate', 'Iron'],
   },
+
   sabzi: {
     name: 'Mixed sabzi',
     portion: '1 serving',
@@ -36,6 +38,7 @@ export const indianFoods = {
     fiber: 5,
     vitamins: ['A', 'C'],
   },
+
   rice: {
     name: 'Steamed rice',
     portion: '1 katori',
@@ -48,8 +51,14 @@ export const indianFoods = {
   },
 }
 
-export function analyzePlate(imageDataUrl) {
-  const items = [indianFoods.dal, indianFoods.roti, indianFoods.sabzi]
+export function analyzePlate(imageDataUrl, selectedFoods = []) {
+  const safeFoods =
+    selectedFoods.length > 0 ? selectedFoods : ['roti', 'dal', 'sabzi']
+
+  const items = safeFoods
+    .map((food) => indianFoods[food])
+    .filter(Boolean)
+
   const totals = items.reduce(
     (acc, item) => ({
       calories: acc.calories + item.calories,
@@ -57,15 +66,24 @@ export function analyzePlate(imageDataUrl) {
       carbs: acc.carbs + item.carbs,
       fiber: acc.fiber + item.fiber,
     }),
-    { calories: 0, protein: 0, carbs: 0, fiber: 0 },
+    {
+      calories: 0,
+      protein: 0,
+      carbs: 0,
+      fiber: 0,
+    },
   )
 
   return {
     imageDataUrl,
     detectedAt: new Date().toISOString(),
-    confidence: 0.78,
+
+    // Demo estimate only — this is not real AI image recognition.
+    confidence: 0.86,
+
     disclaimer:
-      'Estimated nutrition from detected foods, typical portions, and a nutrition database — not a lab measurement.',
+      'Estimated nutrition based on the selected foods, typical portions, and a nutrition database — not a lab measurement.',
+
     items,
     totals,
   }
@@ -83,11 +101,15 @@ export function loadMealHistory() {
 
 export function saveMeal(analysis) {
   const history = loadMealHistory()
+
   const entry = {
     id: crypto.randomUUID(),
     ...analysis,
   }
+
   const next = [entry, ...history].slice(0, 20)
+
   localStorage.setItem(HISTORY_KEY, JSON.stringify(next))
+
   return entry
 }
