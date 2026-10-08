@@ -5,6 +5,7 @@ const tabs = [
   { to: '/scan', label: 'Scan', icon: ScanIcon },
   { to: '/results', label: 'Plate', icon: PlateIcon },
   { to: '/dashboard', label: 'Day', icon: ChartIcon },
+  { to: '/profile', label: 'Profile', icon: ProfileIcon },
 ]
 
 export default function AppLayout() {
@@ -13,8 +14,9 @@ export default function AppLayout() {
       <div className="px-5 pb-28 pt-6">
         <Outlet />
       </div>
+
       <nav className="fixed bottom-0 left-1/2 z-20 w-full max-w-md -translate-x-1/2 border-t border-sand/80 bg-card/95 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur">
-        <ul className="grid grid-cols-4 gap-1">
+        <ul className="grid grid-cols-5 gap-1">
           {tabs.map((tab) => (
             <li key={tab.to}>
               <NavLink
@@ -48,7 +50,7 @@ function HomeIcon() {
 function ScanIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M7 4H5a1 1 0 0 0-1 1v2M17 4h2a1 1 0 0 1 1 1v2M7 20H5a1 1 0 0 1-1-1v-2M17 20h2a1 1 0 0 0 1-1v-2M4 12h16" />
+      <path d="M7 4H5a1 1 0 0 0-1 1v2M17 4h2a1 1 0 0 1 1 1v2M7 20H5a1 1 0 0 1-1-1v-2M17 20h2a1 1 0 0 1 1-1v2M4 12h16" />
     </svg>
   )
 }
@@ -66,6 +68,15 @@ function ChartIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M5 19V9M12 19V5M19 19v-7" />
+    </svg>
+  )
+}
+
+function ProfileIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 20c.8-3.4 3.2-5.2 7-5.2s6.2 1.8 7 5.2" />
     </svg>
   )
 }
